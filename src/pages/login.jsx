@@ -1,36 +1,44 @@
-import { Form, Formik, Field } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import React, { useState } from 'react';
 import { Spinner, useToast } from '@chakra-ui/react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useLoginMutation } from '../features/auth/authApi';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from '../features/auth/AuthSlice';
+
 function Login() {
     const [isLoading, setLoading] = useState(false);
+    const [login, { error }] = useLoginMutation();
     const toast = useToast();
-    const navigate=useNavigate();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const dispatch = useDispatch();
+    const from = location.state?.from?.pathname || '/'; 
 
     async function handleSubmit(values, { setSubmitting }) {
         try {
             setLoading(true);
-            const res = await axios.post('http://localhost:3000/api/login', {
+            const res = await login({
                 email: values.email,
                 password: values.password,
-            });
+            }).unwrap();
 
-            if (res.status === 200) {
-                const { token, user } = res.data;
-                navigate('/')
+            if (res && res.token) {
+                const { token, user } = res;
+                dispatch(setCredentials({ token, user }));
                 toast({
-                    title: `Welcome back ${user?.name}`,
+                    title: "Login successful",
+                    description: `Welcome back, ${user?.name}`,
                     position: "top-center",
-                    status: "info",
+                    status: "success",
                     isClosable: true,
                 });
-                console.log(user.name)
+                navigate(from, { replace: true });
             }
-        } catch (error) {
-            console.error(error);
+        } catch (err) {
             toast({
-                title: `Error logging in`,
+                title: "Error logging in",
+                description: error?.data?.message || "Something went wrong",
                 position: "top-center",
                 status: "error",
                 isClosable: true,
