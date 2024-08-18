@@ -5,6 +5,7 @@ import { FaChalkboardTeacher } from "react-icons/fa";
 import { SiGoogleclassroom } from "react-icons/si";
 import { MdOutlineAccessTimeFilled,MdAccountCircle  } from "react-icons/md";
 import { TfiDashboard } from "react-icons/tfi";
+import LogOut from "../LogOut";
 const SideNav=()=>{
     const [isSelected, setSelected] = useState(false)
     return(
@@ -49,7 +50,9 @@ const SideNav=()=>{
 <h1 className="text-xl text-stone-200">Account</h1>
 </Link>
     </div>
-   
+    <div className=" border-b border-slate-400 items-cente xl:my-2 my-8 w-100 py-4"> 
+   <LogOut/>
+    </div>
    
         </div>
     )
