@@ -1,25 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FormField from "../components/FormField";
 import ModalField from "../components/Modal";
 import { IoPersonAdd } from "react-icons/io5";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
+import useFetch from "../hooks/useFetch";
+import SelectField from "../components/SelectField";
 
-const CreateStudent = () => {
+const CreateTeacher = () => {
   const [isLoading, setLoading] = useState(false);
   const toast = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
-    classroom:""
+    classroom: ""
   });
+
+  // Fetch classrooms from the API
+  const { data: classes = [], error } = useFetch('http://localhost:3000/api/classes');
+
+  // Map fetched classrooms to the format required by SelectField
+  const classOptions = classes.map((classroom) => ({
+    value: classroom._id,
+    label: classroom.name
+  }));
 
   function handleChange(e) {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
+    }));
+  }
+
+  function handleSelectChange(value) {
+    setFormData((prevData) => ({
+      ...prevData,
+      classroom: value
     }));
   }
 
@@ -32,17 +50,18 @@ const CreateStudent = () => {
       if (res.status === 201) {
         setLoading(false);
         toast({
-          title: "Teacher Created Successfully",
+          title: "Student Created Successfully",
           description: "Student has been added successfully.",
           status: "success",
           duration: 5000,
           isClosable: true,
         });
+        setFormData({ name: "", email: "", password: "", classroom: "" }); // Clear form after submission
       }
     } catch (e) {
       setLoading(false);
       toast({
-        title: "Error creating Teacher",
+        title: "Error creating Student",
         description: "An error occurred while creating the student.",
         status: "error",
         duration: 5000,
@@ -57,8 +76,8 @@ const CreateStudent = () => {
       <ModalField
         title="Create Teacher"
         icon={<IoPersonAdd />}
-        buttontext="Add teacher"
-        tooltiptext="Add teacher"
+        buttontext="Add student"
+        tooltiptext="Add student"
         handleSubmit={handleSubmit}
         body={
           <>
@@ -80,7 +99,12 @@ const CreateStudent = () => {
               value={formData.password}
               handleChange={handleChange}
             />
-            
+            <SelectField
+              title="Select Classroom"
+              options={classOptions}
+              value={formData.classroom}
+              onChange={handleSelectChange}
+            />
           </>
         }
         isLoading={isLoading} // Pass isLoading if you want to disable button during loading
@@ -89,4 +113,4 @@ const CreateStudent = () => {
   );
 };
 
-export default CreateStudent;
+export default CreateTeacher;
