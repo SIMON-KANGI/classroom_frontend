@@ -30,7 +30,7 @@ function LogOut() {
   return (
    
         <div className='flex items-center justify-between w-[150px]'>
-      <button onClick={handleLogout} className='text-lg font-montserrat font-bold my-3 flex items-center justify-start' type="button">
+      <button onClick={handleLogout} className='text-lg text-rose-600 font-montserrat font-bold my-3 flex items-center justify-start' type="button">
       <LiaDoorOpenSolid fontSize={'1.5rem'}/>
       Logout
       </button>
