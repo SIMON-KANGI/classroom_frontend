@@ -4,10 +4,13 @@ import SideNav from "./sidenav"
 
 const Teachers=()=>{
     return(
-        <div>
+        <div className="flex">
 <SideNav/>
-<h1>Teachers</h1>
-<CreateTeacher/>
+<section>
+  <h1 className="text-5xl my-8">Teachers</h1>
+<CreateTeacher/>  
+</section>
+
         </div>
     )
 }
