@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import FormField from "../components/FormField";
 import ModalField from "../components/Modal";
 import { IoPersonAdd } from "react-icons/io5";
@@ -14,11 +14,11 @@ const CreateTeacher = () => {
     name: "",
     email: "",
     password: "",
-    classroom: ""
+    classroomName: ""  
   });
 
   // Fetch classrooms from the API
-  const { data: classes = [], error } = useFetch('http://localhost:3000/api/classes');
+  const { data: classes = [] } = useFetch('http://localhost:3000/api/classes');
 
   // Map fetched classrooms to the format required by SelectField
   const classOptions = classes.map((classroom) => ({
@@ -37,7 +37,7 @@ const CreateTeacher = () => {
   function handleSelectChange(value) {
     setFormData((prevData) => ({
       ...prevData,
-      classroom: value
+      classroomName: value  // Match the key used in formData
     }));
   }
 
@@ -50,8 +50,8 @@ const CreateTeacher = () => {
       if (res.status === 201) {
         setLoading(false);
         toast({
-          title: "Student Created Successfully",
-          description: "Student has been added successfully.",
+          title: "Teacher Created Successfully",
+          description: "Teacher has been added successfully.",
           status: "success",
           duration: 5000,
           isClosable: true,
@@ -59,10 +59,11 @@ const CreateTeacher = () => {
         setFormData({ name: "", email: "", password: "", classroom: "" }); // Clear form after submission
       }
     } catch (e) {
+      console.log('formdata', formData)
       setLoading(false);
       toast({
-        title: "Error creating Student",
-        description: "An error occurred while creating the student.",
+        title: "Error Creating Teacher",
+        description: "An error occurred while creating the teacher.",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -76,8 +77,8 @@ const CreateTeacher = () => {
       <ModalField
         title="Create Teacher"
         icon={<IoPersonAdd />}
-        buttontext="Add student"
-        tooltiptext="Add student"
+        buttontext="Add Teacher"
+        tooltiptext="Add Teacher"
         handleSubmit={handleSubmit}
         body={
           <>
@@ -102,12 +103,12 @@ const CreateTeacher = () => {
             <SelectField
               title="Select Classroom"
               options={classOptions}
-              value={formData.classroom}
+              value={formData.classroomName}
               onChange={handleSelectChange}
             />
           </>
         }
-        isLoading={isLoading} // Pass isLoading if you want to disable button during loading
+        isLoading={isLoading} 
       />
     </div>
   );
