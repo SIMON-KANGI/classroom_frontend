@@ -7,8 +7,12 @@ const Students=()=>{
         <div className="flex">
           
             <SideNav/> 
-             <h1>List of Students</h1>
+             
+             <section> 
+                <h1 className="text-5xl my-8">List of Students</h1>
              <CreateStudent/>
+             </section>
+            
         </div>
     )
 }
