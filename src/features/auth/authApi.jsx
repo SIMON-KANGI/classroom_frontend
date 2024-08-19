@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { selectCredentials, logout } from './AuthSlice';
+import { setCredentials, logout } from './AuthSlice';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:3000/api/",
@@ -49,21 +49,21 @@ export const apiSlice = createApi({
     }),
     createClassroom: builder.mutation({
       query: (body) => ({
-        url: 'classrooms',
+        url: 'classes',
         method: 'POST',
         body,
       }),
     }),
     updateClassroom: builder.mutation({
       query: (body) => ({
-        url: `classrooms/${body.id}`,
+        url: `classes/${body.id}`,
         method: 'PUT',
         body,
       }),
     }),
     deleteClassroom: builder.mutation({
       query: (id) => ({
-        url: `classrooms/${id}`,
+        url: `classes/${id}`,
         method: 'DELETE',
       }),
     }),
