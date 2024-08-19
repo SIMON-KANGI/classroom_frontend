@@ -6,12 +6,17 @@ import { SiGoogleclassroom } from "react-icons/si";
 import { MdOutlineAccessTimeFilled,MdAccountCircle  } from "react-icons/md";
 import { TfiDashboard } from "react-icons/tfi";
 import LogOut from "../LogOut";
+import { selectCurrentUser } from "../../features/auth/AuthSlice";
+import { useSelector } from "react-redux";
+import useAuth from "../../hooks/useAuth";
 const SideNav=()=>{
+    const isAuthenticated=useAuth("Principal")
+    const user= useSelector(selectCurrentUser)
     const [isSelected, setSelected] = useState(false)
     return(
         <div className="w-fit p-4 bg-slate-700 h-screen ">
     <div>
-        <h1 className="text-2xl text-stone-100">Welcome Student</h1>
+        <h1 className="text-2xl text-stone-100">Welcome {user?.role}</h1>
 
     </div>
     <div className=" border-b border-slate-400 items-center xl:my-2 my-8 w-100 py-4"> 
@@ -25,13 +30,15 @@ const SideNav=()=>{
 <PiStudentBold size={'40'} color="white"/>
 <h1 className="text-xl text-stone-200">Students</h1>
 </Link>
+
     </div>
-    <div className=" border-b border-slate-400 items-center xl:my-2 my-8 w-100 py-4"> 
+    {isAuthenticated &&(<div className=" border-b border-slate-400 items-center xl:my-2 my-8 w-100 py-4"> 
     <Link to="/teachers" className="flex flex-col items-center justify-evenly"> 
 <FaChalkboardTeacher size={'40'} color="white"/>
 <h1 className="text-xl text-stone-200">Teachers</h1>
 </Link>
-    </div>
+    </div>)}
+    
     <div className=" border-b border-slate-400 items-center xl:my-2 my-8 w-100 py-4"> 
     <Link to="/classes" className="flex flex-col items-center justify-evenly"> 
 <SiGoogleclassroom size={'40'} color="white"/>
