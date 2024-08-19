@@ -50,7 +50,7 @@ function Login() {
     }
 
     return (
-        <div>
+        <div className='mx-auto w-1/2'>
             <h1 className='text-center text-2xl'>Login</h1>
             <Formik
                 initialValues={{ email: "", password: "" }}
