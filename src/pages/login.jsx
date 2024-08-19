@@ -51,13 +51,13 @@ function Login() {
 
     return (
         <div className='mx-auto w-1/2'>
-            <h1 className='text-center text-2xl'>Login</h1>
+           
             <Formik
                 initialValues={{ email: "", password: "" }}
                 onSubmit={handleSubmit}
             >
                 {({ isSubmitting, handleChange, values }) => (
-                    <Form className="block text-stone-900 p-20 border rounded-md border-slate-500">
+                    <Form className="block text-stone-900 p-20 border shadow-lg rounded-md border-slate-500">
                         <h1 className='text-center text-3xl font-bold'>Login to Classroom</h1>
                         <div className="block w-1/2 mx-auto mt-6 relative p-4">
                             <label htmlFor="email" className="absolute -top-2">Email:</label>
@@ -68,6 +68,7 @@ function Login() {
                                 name="email"
                                 value={values.email}
                                 onChange={handleChange}
+                                placeholer="principal@classroom.com"
                             />
                         </div>
                         <div className="block w-1/2 mx-auto mt-6 relative p-4">
