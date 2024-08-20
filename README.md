@@ -12,4 +12,10 @@
 <li>Chakra Ui
 
 ## ACCESS
-<p>To access login using <strong>principal@classroom.com</strong> password is <strong>Admin</strong
+<p>To access login using <strong>principal@classroom.com</strong> password is <strong>Admin</strong</p>
+
+## THE UI
+<img src="../client/public/image1.png"/>
+<img src="../client/public/image2.png"/>
+<img src="../client/public/image3.png"/>
+<img src="../client/public/image4.png"/>
