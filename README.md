@@ -10,3 +10,6 @@
 <li>React
 <li>Redux
 <li>Chakra Ui
+
+## ACCESS
+<p>To access login using <strong>principal@classroom.com</strong> password is <strong>Admin</strong
